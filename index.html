@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>貸款利息計算器</title>
+</head>
+
+<body>
+  <h1>貸款利息計算器</h1>
+  <form>
+    <label for="">試算方式: </label>
+    <input type="radio" name="repayment" id="principalPayment" checked>本金攤還
+    <input type="radio" name="repayment" id="insterestPayment">本息攤還
+    <br>
+    <label for="loanAmount">貸款金額: </label>
+    <input type="number" id="loanAmount" placeholder="請輸入金額">&nbsp;萬
+    <br>
+    <label for="insterestRate">貸款利率: </label>
+    <input type="number" id="insterestRate" step="0.1" value="3.5">&nbsp;%
+    <br>
+    <label for="loanYear">貸款年數: </label>
+    <select name="loanYear" id="loanYear">
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="7" selected>7</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>年
+    <br>
+    <br>
+    <input type="button" value="計算" onclick="roanCalc()">
+  </form>
+
+  <script>
+    const loanAmountEl = document.querySelector("#loanAmount");
+    const insterestRateEl = document.querySelector("#insterestRate");
+    const loanYearEl = document.querySelector("#loanYear");
+    const principalPaymentEl = document.querySelector("#principalPayment");
+    const insterestPaymentEl = document.querySelector("#insterestPayment");
+    function roanCalc() {
+      let loanAmount = loanAmountEl.value;
+      let insterestRate = insterestRateEl.value;
+      let loanYear = loanYearEl.value;
+      let principalPayment = principalPaymentEl.checked;
+      console.log(principalPayment);
+
+    }
+  </script>
+</body>
+
+</html>
