@@ -15,7 +15,7 @@
     <input type="radio" name="repayment" id="insterestPayment">本息攤還
     <br>
     <label for="loanAmount">貸款金額: </label>
-    <input type="number" id="loanAmount" placeholder="請輸入金額">&nbsp;萬
+    <input type="number" id="loanAmount" placeholder="請輸入金額" value="10">&nbsp;萬
     <br>
     <label for="insterestRate">貸款利率: </label>
     <input type="number" id="insterestRate" step="0.1" value="3.5">&nbsp;%
@@ -32,20 +32,39 @@
     <br>
     <input type="button" value="計算" onclick="roanCalc()">
   </form>
+  <ul>
+    <li></li>
+  </ul>
 
   <script>
     const loanAmountEl = document.querySelector("#loanAmount");
     const insterestRateEl = document.querySelector("#insterestRate");
     const loanYearEl = document.querySelector("#loanYear");
     const principalPaymentEl = document.querySelector("#principalPayment");
-    const insterestPaymentEl = document.querySelector("#insterestPayment");
+
+    const ulEl = document.querySelector("ul");
+
     function roanCalc() {
-      let loanAmount = loanAmountEl.value;
+      let loanAmount = loanAmountEl.value * 10000;
       let insterestRate = insterestRateEl.value;
       let loanYear = loanYearEl.value;
       let principalPayment = principalPaymentEl.checked;
-      console.log(principalPayment);
 
+      let amout = loanAmount;
+      let months = loanYear * 12;
+      let monthRate = insterestRate / 100 / 12;
+
+      let monthPay = parseInt(amout / months);
+      console.log(amout, monthRate, months, monthPay);
+      for (let i = 0; i < months; i++) {
+        let interest = Math.round(amout * monthRate)
+        amout -= monthPay
+        if (i == months - 1) {
+          ulEl.innerHTML = `<li>期別:${i + 1} 本金:${monthPay + amout} 利息:${interest} 本利和:${monthPay + interest + amout} 餘額:0</li>`;
+        } else {
+          ulEl.innerHTML = `<li>期別:${i + 1} 本金:${monthPay} 利息:${interest} 本利和:${monthPay + interest} 餘額:${amout}</li>`;
+        }
+      }
     }
   </script>
 </body>
