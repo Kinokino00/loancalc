@@ -32,9 +32,7 @@
     <br>
     <input type="button" value="計算" onclick="roanCalc()">
   </form>
-  <ul>
-    <li></li>
-  </ul>
+  <ul id="result"></ul>
 
   <script>
     const loanAmountEl = document.querySelector("#loanAmount");
@@ -42,7 +40,7 @@
     const loanYearEl = document.querySelector("#loanYear");
     const principalPaymentEl = document.querySelector("#principalPayment");
 
-    const ulEl = document.querySelector("ul");
+    const resultEl = document.querySelector("#result");
 
     function roanCalc() {
       let loanAmount = loanAmountEl.value * 10000;
@@ -56,15 +54,19 @@
 
       let monthPay = parseInt(amout / months);
       console.log(amout, monthRate, months, monthPay);
+      let liText = "";
       for (let i = 0; i < months; i++) {
         let interest = Math.round(amout * monthRate)
         amout -= monthPay
+        let text = "";
         if (i == months - 1) {
-          ulEl.innerHTML = `<li>期別:${i + 1} 本金:${monthPay + amout} 利息:${interest} 本利和:${monthPay + interest + amout} 餘額:0</li>`;
+          text = `期別:${i + 1} 本金:${monthPay + amout} 利息:${interest} 本利和:${monthPay + interest + amout} 餘額:0`;
         } else {
-          ulEl.innerHTML = `<li>期別:${i + 1} 本金:${monthPay} 利息:${interest} 本利和:${monthPay + interest} 餘額:${amout}</li>`;
+          text = `期別:${i + 1} 本金:${monthPay} 利息:${interest} 本利和:${monthPay + interest} 餘額:${amout}`;
         }
+        liText += `<li>${text}</li>`;
       }
+      resultEl.innerHTML = liText;
     }
   </script>
 </body>
