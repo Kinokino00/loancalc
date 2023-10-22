@@ -33,6 +33,18 @@
     <input type="button" value="計算" onclick="roanCalc()">
   </form>
   <ul id="result"></ul>
+  <table border="1" id="resultTable">
+    <thead>
+      <tr>
+        <th>期別</th>
+        <th>本金</th>
+        <th>利息</th>
+        <th>本利和</th>
+        <th>餘額</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
   <script>
     const loanAmountEl = document.querySelector("#loanAmount");
@@ -42,32 +54,45 @@
 
     const resultEl = document.querySelector("#result");
 
-    function roanCalc() {
+    const tableTbodyEl = document.querySelector("#resultTable>tbody");
+
+    function roanCalc() {  //處理邏輯
       let loanAmount = loanAmountEl.value * 10000;
       let insterestRate = insterestRateEl.value;
       let loanYear = loanYearEl.value;
       let principalPayment = principalPaymentEl.checked;
 
-      let amout = loanAmount;
+      let amount = loanAmount;
       let months = loanYear * 12;
       let monthRate = insterestRate / 100 / 12;
 
-      let monthPay = parseInt(amout / months);
-      console.log(amout, monthRate, months, monthPay);
-      let liText = "";
+      let monthPay = parseInt(amount / months);
+      let resultPayment = [];
+
+      console.log(amount, monthRate, months, monthPay);
       for (let i = 0; i < months; i++) {
-        let interest = Math.round(amout * monthRate)
-        amout -= monthPay
+        let interest = Math.round(amount * monthRate);
+        amount -= monthPay;
         let text = "";
         if (i == months - 1) {
-          text = `期別:${i + 1} 本金:${monthPay + amout} 利息:${interest} 本利和:${monthPay + interest + amout} 餘額:0`;
+          resultPayment.push([i + 1, monthPay + amount, interest, monthPay + interest + amount, 0]);
         } else {
-          text = `期別:${i + 1} 本金:${monthPay} 利息:${interest} 本利和:${monthPay + interest} 餘額:${amout}`;
+          resultPayment.push([i + 1, monthPay, interest, monthPay + interest, amount]);
         }
-        liText += `<li>${text}</li>`;
       }
-      resultEl.innerHTML = liText;
-    }
+      drawTable(resultPayment);
+    };
+    function drawTable(resultPayment) {  //負責繪製(table)
+      let tableHtml = "";
+      for (let i = 0; i < resultPayment.length; i++) {
+        tableHtml += `<tr>`;
+        for (let j = 0; j < resultPayment[i].length; j++) {
+          tableHtml += `<td>${resultPayment[i][j]}</td>`;
+        };
+        tableHtml += `</tr>`;
+      }
+      tableTbodyEl.innerHTML = tableHtml;
+    };
   </script>
 </body>
 
