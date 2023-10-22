@@ -1,0 +1,70 @@
+body {
+  text-align: center;
+  background-color: antiquewhite;
+  font-family: '標楷體', Courier, monospace;
+  font-size: 20px;
+}
+
+form {
+  background-color: burlywood;
+  padding: 24px;
+  border-radius: 20px;
+  width: 30%;
+  margin: 12px auto;
+}
+
+input, select {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 18px;
+}
+
+input[type='button'] {
+  width: 100px;
+  background-color: brown;
+  color: white;
+}
+
+#result {
+  background-color: cadetblue;
+  padding: 12px 0;
+  font-weight: bold;
+  border-radius: 12px;
+}
+
+#resultTable {
+  width: 60%;
+  margin: 0 auto;
+  border-collapse: collapse;  /* 把表格間距拿掉，看起來會像一條線 */
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+th {
+  background-color: rgb(219, 78, 26);
+}
+
+td:first-child {
+  background-color: coral;
+}
+
+td:nth-child(3) {
+  background-color: rgb(255, 214, 199);
+}
+
+
+
+@media screen and (max-width:1280px) {
+  form, #resultTable {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  body {
+    font-size: 16px;
+  }
+  form, #resultTable {
+    width: 90%;
+  }
+}
