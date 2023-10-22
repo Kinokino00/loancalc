@@ -5,49 +5,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>貸款利息計算器</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    input {
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>貸款利息計算器</h1>
-  <form>
-    <label for="">試算方式: </label>
-    <input type="radio" name="repayment" id="principalPayment" checked>本金攤還
-    <input type="radio" name="repayment" id="insterestPayment">本息攤還
-    <br>
-    <label for="loanAmount">貸款金額: </label>
-    <input type="number" id="loanAmount" placeholder="請輸入金額" value="10">&nbsp;萬
-    <br>
-    <label for="insterestRate">貸款利率: </label>
-    <input type="number" id="insterestRate" step="0.1" value="3.5">&nbsp;%
-    <br>
-    <label for="loanYear">貸款年數: </label>
-    <select name="loanYear" id="loanYear">
-      <option value="3">3</option>
-      <option value="5">5</option>
-      <option value="7" selected>7</option>
-      <option value="10">10</option>
-      <option value="20">20</option>
-    </select>年
-    <!-- <input type="text" /> -->
-    <!-- 練習:有輸入自訂期數已input為主 -->
-    <br>
-    <br>
-    <input type="button" value="計算" onclick="roanCalc()">
-  </form>
-  <div id="result"></div>
-  <table border="1" id="resultTable" hidden>
-    <thead>
-      <tr>
-        <th>期別</th>
-        <th>本金</th>
-        <th>利息</th>
-        <th>本利和</th>
-        <th>餘額</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <section class="hero is-warning is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title is-size-1">貸款利息計算器</p>
+        <div class="columns is-centered">
+          <div class="column is-6">
+            <form class="box has-background-warning-light">
+              <div class="field box has-background-warning-dark has-text-white">
+                <label class="label has-text-white is-size-5">試算方式</label>
+                <div class="control">
+                  <input type="radio" name="repayment" id="principalPayment" checked>本金攤還
+                  <input type="radio" name="repayment" id="insterestPayment">本息攤還
+                </div>
+              </div>
+              <div class="field ml-6 mr-6 p-1">
+                <label class="label" for="loanAmount">貸款金額(萬)</label>
+                <input class="input" type="number" id="loanAmount" placeholder="請輸入金額" value="10">
+              </div>
+              <div class="field ml-6 mr-6 p-1">
+                <label class="label" for="insterestRate">貸款利率(%)</label>
+                <input class="input" type="number" id="insterestRate" step="0.1" value="3.5">
+              </div>
+              <div class="field ml-6 mr-6 p-1">
+                <label class="label" for="loanYear">貸款年數</label>
+                <div class="select is-fullwidth">
+                  <select class="has-text-centered" name="loanYear" id="loanYear">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7" selected>7</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+              </div>
+              <!-- <input type="text" /> -->
+              <!-- 練習:有輸入自訂期數以input為主 -->
+              <input class="button has-background-info-dark has-text-white" type="button" value="計算"
+                onclick="roanCalc()">
+              <input class="button has-background-info-light" type="reset" value="重置">
+            </form>
+          </div>
+          <div class="column is-4">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, quaerat quas, blanditiis, laboriosam
+            voluptas quis odit quasi saepe exercitationem illo dolores repellendus provident a quibusdam atque
+            repudiandae alias velit error?
+          </div>
+        </div>
+        <div id="result" class="box is-size-5 has-background-dark has-text-white"></div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <table class="table is-fullwidth is-bordered is-striped is-hoverable" id="resultTable" hidden>
+              <thead>
+                <tr class="has-background-warning-dark">
+                  <th class="has-text-white has-text-centered">期別</th>
+                  <th class="has-text-white has-text-centered">本金</th>
+                  <th class="has-text-white has-text-centered">利息</th>
+                  <th class="has-text-white has-text-centered">本利和</th>
+                  <th class="has-text-white has-text-centered">餘額</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <a href="" class="button">TOP</a>
+      </div>
+    </div>
+  </section>
 
   <script>
     const loanAmountEl = document.querySelector("#loanAmount");
@@ -87,7 +122,7 @@
       for (let i = 0; i < resultPayment.length; i++) {
         totalInterest += resultPayment[i][2];
       };
-      resultEl.innerHTML = `期數: ${resultPayment.length} 總利息支出: ${totalInterest} 總還款金額: ${amount + totalInterest}`;
+      resultEl.innerHTML = `期數: ${resultPayment.length} 總利息支出: ${totalInterest} 總還款金額: ${loanAmount + totalInterest}`;
       drawTable(resultPayment);
     };
 
